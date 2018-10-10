@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import 'React';
 
 class ContactList extends React.Component {
   render() {
