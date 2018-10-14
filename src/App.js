@@ -14,7 +14,7 @@ class ContactList extends React.Component {
   }
 }
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <div className="App">
