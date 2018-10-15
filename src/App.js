@@ -9,6 +9,7 @@ class ContactList extends React.Component {
     return <ol>
       {people.map((person => (
         <li key={person.name}>{person.name}</li>
+        <li key={person.email}>{person.email}</li>
       )))}
     </ol>
   }
