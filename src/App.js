@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import 'React';
 import PropTypes from 'proptypes'
 
 class ContactList extends React.Component {
