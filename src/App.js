@@ -4,7 +4,6 @@ import PropTypes from 'proptypes'
 class ContactList extends React.Component {
   render() {
     const people = this.props.contacts
-
     return <ol>
       {people.map((person => (
         <li key={person.name}>{person.name}</li>
@@ -21,7 +20,8 @@ class App extends React.Component {
         <ContactList contacts={[
           { name: 'Tyler '},
           { name: 'Karen' },
-          { name: 'Richard '}
+          { name: 'Richard '},
+          { name: 'Jim' }
         ]}/>
         <ContactList contacts={[
           { name: 'Amanda' },
