@@ -4,7 +4,8 @@ import PropTypes from 'proptypes'
 class ContactList extends React.Component {
   render() {
     state {
-      this.props;
+      screen: this.props;
+
     }
     const people = this.props.contacts
     return <ol>
