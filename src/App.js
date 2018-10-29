@@ -5,8 +5,17 @@ class ContactList extends React.Component {
   render() {
     state {
       screen: this.props;
-
     }
+
+    componentDidMount() {
+      ContactsAPI.getAll()
+        .then((contacts) => {
+            this.setState(() => ({
+              contacts
+            }))
+        })
+    }
+    
     const people = this.props.contacts
     return <ol>
       {people.map((person => (
