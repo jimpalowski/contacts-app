@@ -1,48 +1,65 @@
 import React, { Component } from 'react';
-import PropTypes from 'proptypes'
+import ListContacts from './ListContacts'
+import * as ContactsAPI from './utils/ContactsAPI';
+import CreateContact from './CreateContact';
+import { Route } from 'react-router-dom';
 
-class ContactList extends React.Component {
-  render() {
-    state {
-      screen: this.props;
-    }
 
-    componentDidMount() {
-      ContactsAPI.getAll()
-        .then((contacts) => {
-            this.setState(() => ({
-              contacts
-            }))
-        })
-    }
-    
-    const people = this.props.contacts
-    return <ol>
-      {people.map((person => (
-        <li key={person.name}>{person.name}</li>
-        <li key={person.email}>{person.email}</li>
-      )))}
-    </ol>
-  }
+class App extends Component {
+state = {
+  contacts: [],
 }
+  componentDidMount() {
+    ContactsAPI.getAll()
+      .then((contacts) => {
+          this.setState(() => ({
+            contacts
+          }))
+      })
+  }
 
-class App extends React.Component {
+
+  removeContact = (contact) => {
+    this.setState((currentState) => ({
+      contacts: currentState.contacts.filter((c) => {
+        return c.id !== contact.id
+      })
+    }))
+
+    ContactsAPI.remove(contact)
+  }
+
+  createContact = (contact) => {
+    ContactsAPI.create(contact)
+      .then((contact) => {
+        this.setState((currentState) => ({
+          contacts: currentState.contacts.concat([contact])
+        }))
+      })
+  }
+
+
+
   render() {
     return (
-      <div className="App">
-        <ContactList contacts={[
-          { name: 'Tyler '},
-          { name: 'Karen' },
-          { name: 'Richard '},
-          { name: 'Jim' }
-        ]}/>
-        <ContactList contacts={[
-          { name: 'Amanda' },
-          { name: 'Mikenzi' },
-          { name: 'Ryan' }
-        ]}/>
+      <div>
+        <Route exact path='/' render={() => (
+          <ListContacts 
+          contacts={this.state.contacts}
+          onDeleteContact={this.removeContact}
+          />
+        )} />
+        <Route path='/create' render={({ history }) => (
+          <CreateContact
+            onCreateContact={(contact) => {
+              this.createContact(contact)
+              history.push('/')
+            }}
+          />
+        )}
+        />
       </div>
-    );
+    )
   }
 }
 
